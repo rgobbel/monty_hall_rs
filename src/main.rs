@@ -41,10 +41,10 @@ fn main() {
     let i_last:usize = (n_doors - n_opens - 1) as usize;
     let rand_car = Uniform::from(0..n_doors);
 
-    // for _ in tqdm::tqdm(0..n_trials) {
-    for _ in 0..n_trials {
+    for _ in tqdm::tqdm(0..n_trials) {
+    // for _ in 0..n_trials {
         let mut outcome = &Lose;
-        let final_choice: usize;
+        let mut final_choice: usize;
         let car_door:usize = rand_car.sample(&mut rng) as usize;
         let first_choice = 0; //rng.gen_range(0..n_doors);
         let decision: &Choice;
@@ -60,12 +60,9 @@ fn main() {
                 outcome = &Win
             }
         } else if first_choice != car_door {
-            if car_door <= i_last {
-                final_choice = rng.gen_range(0..i_last) + 1;
-            } else {
-                let mut doors: Vec<usize> = (1..i_last + 1).collect();
-                doors[i_last - 1] = car_door;
-                final_choice = *doors.choose(&mut rng).unwrap();
+            final_choice = rng.gen_range(0..i_last) + 1;
+            if car_door > i_last && final_choice == i_last {
+                final_choice = car_door;
             }
             if final_choice == car_door {
                 outcome = &Win
