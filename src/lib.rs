@@ -29,6 +29,7 @@ pub mod stats {
         lose_switch: i32,
         do_probs: Option<bool>,
     ) {
+        use num_format::{Locale, ToFormattedString};
         // pub fn print_summary(n_trials: usize, n_doors: usize, n_opens: usize, stats: &HashMap<(&Choice, &Outcome), i32>, do_probs: Option<bool>) {
         // let win_stay = *stats.get(&(&Stay, &Win)).unwrap_or(&0) as f32;
         // let win_switch = *stats.get(&(&Switch, &Win)).unwrap_or(&0) as f32;
@@ -40,7 +41,11 @@ pub mod stats {
         let lose_switch = lose_switch as f32;
         let switch_runs = win_switch + lose_switch;
         let stay_runs = win_stay + lose_stay;
-        println!("{n_trials} trials, {n_doors} doors, {n_opens} opens");
+
+        let s_t = n_trials.to_formatted_string(&Locale::en);
+        let s_d = n_doors.to_formatted_string(&Locale::en);
+        let s_n = n_opens.to_formatted_string(&Locale::en);
+        println!("{s_t} trials, {s_d} doors, {s_n} opens");
         println!("wins = switch:{win_switch}, stay:{win_stay}");
         println!("losses = switch:{lose_switch}, stay:{lose_stay}");
         println!("switch: win:{win_switch}, lose:{lose_switch}");

@@ -380,6 +380,7 @@ name = "monty_hall"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "num-format",
  "pprof",
  "rand",
  "tqdm",
